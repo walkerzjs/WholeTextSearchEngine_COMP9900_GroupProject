@@ -1,0 +1,5 @@
+Week 2
+Group formed. I wrote 3 epic components of the proposal as well as part of the background. I invited Stanley to the bitbucket and trello group. I uploaded one simple flask app to the bitbucket to help others start development. 
+
+Week 3
+We discussed the tasks about finalising the proposal and I wrote an brief comparison about different algorithms on document vectorisation and matching. 
