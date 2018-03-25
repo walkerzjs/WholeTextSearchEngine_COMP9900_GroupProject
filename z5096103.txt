@@ -3,3 +3,6 @@ Group formed. I wrote 3 epic components of the proposal as well as part of the b
 
 Week 3
 We discussed the tasks about finalising the proposal and I wrote an brief comparison about different algorithms on document vectorisation and matching. 
+
+Week 4
+I implemented some test function for similarity matching and calculation.Currently it will only compare the different vectors. But later need to do more to take the inputs and then give proper outputs.
