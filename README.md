@@ -19,5 +19,5 @@ Important:
     - git push origin <new_temporary_branch_name>
     - create a pull request from Bitbucket using new_temporary_branch_name to master branch. (make sure to check the diff to see that the files you want to merge are all included in that new_temporary_branch_name branch)
 
-* Write access to master branch is only scrum master for editing README.md
+* Write access to master branch is only scrum master for editing README.md and add some files
 * To merge to master branch, 2 approvals is required. Will increase to 3 or 4 if necessary.
