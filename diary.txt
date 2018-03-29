@@ -1,0 +1,14 @@
+Week 2
+Group formed, created Trello and BitBucket accounts
+
+Week 3
+Decided the topic, discussed about what algorithms are we going to use
+Created the project proposal
+
+Week 4
+Assigning tasks to each teammates
+started working on the web interface
+
+Week 5
+Got a simple working interface
+Added paging and upload function

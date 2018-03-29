@@ -21,7 +21,7 @@
             <a class="navbar-brand" href="{{url_for('home')}}"><h3>Legal Case Search Engine</h3></a>
 
 			<div class="form-inline">
-				<a class="navbar-brand" href="{{url_for('show_all')}}"> All Articles&#160 </a>
+				<a class="navbar-brand" href="{{url_for('show_all',page=1)}}"> All Articles&#160 </a>
 				<a class="navbar-brand" href="{{url_for('upload')}}"> Upload Articles&#160 </a>
 				<a class="navbar-brand" href="https://www.patreon.com/"> Support Us </a>
 			</div>
@@ -45,7 +45,28 @@
 			<a  href="{{url_for('showing_article',link=link)}}">{{title}}</a></br>
 		{% endfor %}
         <br><br>
-        
+		
+		
+        <nav class="navbar navbar-expand-md bg-dark justify-content-between" >
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" >
+			{% if total > 10 %}
+            <div class="btn-group btn-group-lg" role="group" aria-label="First group">
+				<form method="POST" >
+
+					{% for i in range( 1,  (total//100) + 1 ) %}
+					<button type="submit" class="btn btn-secondary" herf="{{url_for('show_all',page= i)}}">{{i}}</button>
+					{% endfor %}
+					
+				</form>
+            </div>
+				<font size="4" color="#1E90FF">
+					&#160&#160 <u>Page: {{ page }}/{{ total//100 }}</u>
+				</font>
+			{% endif %}
+        </div>
+        </nav>
+		
+		
         </form>
    </body>
 </html>
