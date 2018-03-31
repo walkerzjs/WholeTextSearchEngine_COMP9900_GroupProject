@@ -1,0 +1,13 @@
+Interface:
+1. Changed the button link to <a> with bootstrap button class.
+2. Changed the return of the upload route to be redirected to search results.
+3. moved the previous extracting title code to a seperate function to be reused conveniently.
+4. Created a new html page for displaying search results. The framework reused the html page for displaying all documents.
+5. Integreted the search ability for uploaded document.
+
+Text extraction:
+1. Referred Hossein’s part about txt file extraction.
+2. For vectorising part, partly referred to Hossein’s work.
+
+Utility:
+1. Referred to Hendri’s work about using utilities object to contain load and write files functions. 
