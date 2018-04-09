@@ -51,13 +51,18 @@
         <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" >
 			{% if total > 10 %}
             <div class="btn-group btn-group-lg" role="group" aria-label="First group">
-				<form method="POST" >
 
-					{% for i in range( 1,  (total//100) + 1 ) %}
-					<button type="submit" class="btn btn-secondary" herf="{{url_for('show_all',page= i)}}">{{i}}</button>
-					{% endfor %}
+				<form method="POST">
+
+                    {% for i in range( 1,  (total//100) + 1 ) %}
+                        <div>
+                            <p><a href="{{url_for('show_all',page= i)}}" class="btn btn-secondary">{{i}}</a></p>
+                        </div>
+
+                    {% endfor %}
 					
 				</form>
+
             </div>
 				<font size="4" color="#1E90FF">
 					&#160&#160 <u>Page: {{ page }}/{{ total//100 }}</u>

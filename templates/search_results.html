@@ -5,17 +5,18 @@
     <link rel="shortcut icon" href="static/favicon.ico" />
     <title>Legal Case Search Engine</title>
 	<style>
-    .boxed {
-        width: 100%;
-        padding: 10px;
-        border: 5px solid gray;
-        margin: 0;
+
+    #text_area{
+        height: 100%
+    }
+    iframe{
+            height:100%
     }
     </style>
 
     </head>
     <body>
-        <form method="POST">
+        <form method="POST" id = "text_area">
         <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark justify-content-between" >
 
             <a class="navbar-brand" href="{{url_for('home')}}"><h3>Legal Case Search Engine</h3></a>
@@ -38,10 +39,37 @@
 			</div>
 			
 		</nav>
+		
+		<br><br><br><br>
+		<h2>Here are the similar articles:</h2>
+		{% for link,title, similarity in articles %}
+            <div>
+            <p> Similarity: {{ similarity|round(2)}}<a  href="{{url_for('showing_article',link=link)}}">  {{title}}</a></p>
+
+            </div>
+		{% endfor %}
         <br><br>
-        <br><br>
-        
-		<iframe src="/static/{{link}}" width = "100%" style="position: absolute; height: 100%; border: none"></iframe>
+		
+		
+        <nav class="navbar navbar-expand-md bg-dark justify-content-between" >
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" >
+			{% if total > 10 %}
+            <div class="btn-group btn-group-lg" role="group" aria-label="First group">
+				<form method="POST" >
+
+					{% for i in range( 1,  (total//100) + 1 ) %}
+{#					<button type="submit" class="btn btn-secondary" herf="{{url_for('show_search_result',page= i)}}">{{i}}</button>#}
+                        <a href="{{url_for('show_search_result',page= i)}}" class="btn btn-secondary">{{i}}</a>
+					{% endfor %}
+					
+				</form>
+            </div>
+				<font size="4" color="#1E90FF">
+					&#160&#160 <u>Page: {{ page }}/{{ total//100 }}</u>
+				</font>
+			{% endif %}
+        </div>
+        </nav>
 		
 		
         </form>
