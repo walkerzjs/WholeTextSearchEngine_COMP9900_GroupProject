@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+    <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="shortcut icon" href="static/favicon.ico" />
+    <title>Legal Case Search Engine</title>
+	<style>
+    .boxed {
+        width: 100%;
+        padding: 10px;
+        border: 5px solid gray;
+        margin: 0;
+    }
+    </style>
+
+    </head>
+    <body>
+        <form method="POST">
+        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark justify-content-between" >
+
+            <a class="navbar-brand" href="{{url_for('home')}}"><h3>Legal Case Search Engine</h3></a>
+
+			<div class="form-inline">
+				<a class="navbar-brand" href="{{url_for('show_all',page=1)}}"> All Articles&#160 </a>
+				<a class="navbar-brand" href="{{url_for('upload')}}"> Upload Articles&#160 </a>
+				<a class="navbar-brand" href="https://www.patreon.com/"> Support Us </a>
+			</div>
+        
+		
+			<div class="form-inline">
+				<input class="form-control" type="text" placeholder="Search all database" aria-label="Search" name="search" size="50">
+				<span class="input-group-btn">
+					<button class="btn btn-secondary" type="submit" name="btn" value="s_name">&#x1F50E Title</button>
+				</span>
+				<span class="input-group-btn">
+					<button class="btn btn-secondary" type="submit" name="btn" value="s_post">&#x1F50E Content</button>
+				</span>
+			</div>
+			
+		</nav>
+		
+        <br><br>
+        <br><br>
+		<span class="badge badge-light"><h4>Add a new article:</h4></span>
+                <textarea type="text" placeholder="  Copy and paste your aritcle here " style="font-size:18pt;height:200px;width:100%;" name="upload_new"></textarea>
+                <button type="submit" class="btn btn-secondary" name="btn" value="upload_article">UPLOAD</button><br><br>
+        </span>
+        </form>
+		
+		<h3>&#160OR</h3><br>
+
+		<span class="badge badge-light"><h4>Upload a file:</h4></span><br><br>
+		<form method="post" enctype="multipart/form-data">
+			<input type="file" name="file">
+			
+			<button type="submit" class="btn btn-secondary" name="btn" value="upload_file">UPLOAD</button>
+		</form>
+		<br><br>
+		
+		{% if message %}
+			<h2>{{message}}</h2>
+		{% endif %}
+   </body>
+</html>
