@@ -1,0 +1,33 @@
+
+<!doctype html>
+<html>
+   <head>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+   <link rel="shortcut icon" href="static/favicon.ico" />
+   <title>Register page </title>
+   </head>
+   <body>
+
+         <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{url_for('index')}}">Legal Case Search Engine</a>
+        </nav>
+           <br><br><br>
+      <div class="container" style="width:400px">
+        <h2> Register here:</h2>
+        </br>
+         <form method="POST">
+          <dl>
+             <dt>zID:
+             <dd><input type="text" name="username" class="form-control placeholder="Username" >
+             <dt>Password:
+             <dd><input type="password" name="password" class="form-control" placeholder="******" >
+            </dl>
+     </div>
+
+       <p align="center"><button type="submit" name="btn" class="btn btn-primary" value="login">Register</button></p>
+       {% if err_msg %}
+         <p align="center" class=err_msg>Error: {{ err_msg }}</p>
+       {% endif %}
+     </form>
+   </body>
+</html>

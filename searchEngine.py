@@ -2,13 +2,14 @@
 
 import os, re, collections, datetime, operator
 #change working dir
-here = os.path.dirname(__file__)
+#here = os.path.dirname(__file__)
 #print(os.getcwd())
-os.chdir(here)
+#os.chdir(here)
 #print(os.getcwd())
 from flask import Flask, request, render_template, redirect, url_for, make_response, session
 from werkzeug import secure_filename
 import searchEngine_backend as se
+import csv
 
 
 app = Flask(__name__)
@@ -18,9 +19,31 @@ app.config['MAX_CONTENT_PATH'] = 4000
 
 
 global current_result
+
 @app.route('/')
-def hello_world():
-    return redirect(url_for('home'))
+@app.route('/login', methods = ["GET","POST"])
+def login():
+    user = None
+    error_message = None
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        user = authentication(username, password)
+        if user is not None:
+            login_id = username
+            return redirect(url_for('home'))
+        else:
+            login_id = None
+            error_message = "Incorrect username or password."
+    return render_template("login.html", err_msg = error_message)
+
+@app.route('/register', methods = ["GET", "POST"])
+def register():
+    if request.method == "POST":
+        with open('credentials.csv', 'a') as f:
+            writer = csv.writer(f)
+            writer.writerow([request.form.get("username"),request.form.get("password")])
+    return render_template("register.html")
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -137,6 +160,18 @@ def get_all_aritcles(page, total):
         count += 1
     #print(articles)
     return articles
+
+def authentication (username, password):
+
+    with open('credentials.csv', 'r') as f:
+        for i in f:
+            if re.match("^"+username, i):
+                line = re.sub("^.*\,","",i)
+                line = re.sub("\n$","",line)
+                if line == password:
+                    return username
+
+    return None
 
 
 if __name__ == '__main__':
