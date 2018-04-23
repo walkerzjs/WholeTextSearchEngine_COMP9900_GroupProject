@@ -16,7 +16,7 @@
 
     </head>
     <body>
-        <form method="POST" id = "text_area">
+{#        <form method="POST" id = "text_area">#}
         <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark justify-content-between" >
 
             <a class="navbar-brand" href="{{url_for('home')}}"><h3>Legal Case Search Engine</h3></a>
@@ -26,10 +26,10 @@
 				<a class="navbar-brand" href="{{url_for('upload')}}"> Upload Articles&#160 </a>
 				<a class="navbar-brand" href="https://www.patreon.com/"> Support Us </a>
 			</div>
-        
+        <form method="POST", action = {{ url_for("search") }}
 		
 			<div class="form-inline">
-				<input class="form-control" type="text" placeholder="Search all database" aria-label="Search" name="search" size="50">
+				<input class="form-control" type="text" placeholder="Search by important words" aria-label="Search" name="search" size="50">
 				<span class="input-group-btn">
 					<button class="btn btn-secondary" type="submit" name="btn" value="s_name">&#x1F50E Title</button>
 				</span>
@@ -37,15 +37,16 @@
 					<button class="btn btn-secondary" type="submit" name="btn" value="s_post">&#x1F50E Content</button>
 				</span>
 			</div>
-			
+        </form>
 		</nav>
 		
 		<br><br><br><br>
 		<h2>Here are the similar articles:</h2>
-		{% for link,title, similarity in articles %}
+		{% for link,title, similarity, top_words in articles %}
             <div>
             <p> Similarity: {{ similarity|round(2)}}<a  href="{{url_for('showing_article',link=link)}}">  {{title}}</a></p>
-
+            <h6>Top Important Words:</h6><p>{{ top_words[:50] }}</p>
+            <br>
             </div>
 		{% endfor %}
         <br><br>

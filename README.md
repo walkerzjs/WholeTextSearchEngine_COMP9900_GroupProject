@@ -33,3 +33,13 @@ additional info:
 
 4. After init.py has finished running, can start the server by run the “/Legal Case Search App/searchEngine.py” to start using the app.
 
+
+
+Implemented functions for extracting important words for 1-gram and 2-gram features.
+
+
+Added function of displaying important words produced by tfidf algorithm. and enabled the function of search bar
+
+
+Stanley and Henri's work:
+1. Added functions to login and register.'

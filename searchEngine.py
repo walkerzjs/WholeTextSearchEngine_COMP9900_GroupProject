@@ -2,15 +2,14 @@
 
 import os, re, collections, datetime, operator
 #change working dir
-#here = os.path.dirname(__file__)
+here = os.path.dirname(__file__)
 #print(os.getcwd())
-#os.chdir(here)
+os.chdir(here)
 #print(os.getcwd())
 from flask import Flask, request, render_template, redirect, url_for, make_response, session
 from werkzeug import secure_filename
 import searchEngine_backend as se
 import csv
-
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_PATH'] = 4000
@@ -19,8 +18,12 @@ app.config['MAX_CONTENT_PATH'] = 4000
 
 
 global current_result
+# @app.route('/')
+# def hello_world():
+#     return redirect(url_for('home'))
 
-@app.route('/')
+
+@app.route('/', methods = ["GET","POST"])
 @app.route('/login', methods = ["GET","POST"])
 def login():
     user = None
@@ -29,21 +32,44 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         user = authentication(username, password)
+        print("OK1")
+
         if user is not None:
             login_id = username
+            print("OK2")
             return redirect(url_for('home'))
         else:
             login_id = None
+            print("not OK2")
             error_message = "Incorrect username or password."
     return render_template("login.html", err_msg = error_message)
 
+
+
+
 @app.route('/register', methods = ["GET", "POST"])
 def register():
+    err_msg = None
+
     if request.method == "POST":
-        with open('credentials.csv', 'a') as f:
-            writer = csv.writer(f)
-            writer.writerow([request.form.get("username"),request.form.get("password")])
-    return render_template("register.html")
+        check = 0
+        username = request.form["username"]
+        password = request.form["password"]
+        with open('credentials.csv', "r") as f:
+            for i in f:
+                if re.match("^"+username+",",i):
+                    check = 1
+                    break
+        if check == 0:
+            with open('credentials.csv', 'w') as f:
+                writer = csv.writer(f)
+                writer.writerow([request.form.get("username"), request.form.get("password")])
+            return redirect(url_for('login'))
+        else:
+            err_msg = "User name already exists."
+
+
+    return render_template("register.html", err_msg = err_msg)
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -122,14 +148,19 @@ def show_search_result(page):
     #total = int(len(os.listdir("static/NSW/")))
     total = len(current_result)
     #articles = get_all_aritcles(page, total)
-    articles = current_result[((page - 1) * 100):page * 100,[0,1,2]]
+    articles = current_result[((page - 1) * 100):page * 100,[0,1,2,3]]
     #print(articles)
     return render_template("search_results.html", articles=articles, page=page, total=total)
 
 
-@app.route('/search/<field>', methods=['GET', 'POST'])
-def search(field):
-    return render_template("home.html")
+@app.route('/search', methods=['POST'])
+def search():
+    global current_result
+    search_content = request.form['search']
+    print("in the search")
+    print(search_content)
+    current_result = se.find_similarity(search_content, input_savepath="static/reduced_vector", result_size=200)
+    return redirect(url_for('show_search_result',page = 1))
 
 
 def allowed_file(filename):
@@ -172,6 +203,10 @@ def authentication (username, password):
                     return username
 
     return None
+
+
+
+
 
 
 if __name__ == '__main__':

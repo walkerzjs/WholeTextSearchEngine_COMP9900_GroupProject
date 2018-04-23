@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 28 11:28:18 2018
-
-@author: junshuaizhang
-"""
+    Created on Wed Mar 28 11:28:18 2018
+    
+    @author: junshuaizhang
+    """
 from datetime import datetime
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
@@ -13,7 +13,7 @@ import pandas as pd
 
 
 class simi_matcher:
-
+    
     def simi_matching(self, uploaded_file, existed_files, neighbors=20):
         start=datetime.now()
         
@@ -37,12 +37,17 @@ class simi_matcher:
         return distances, indices, similarity
     
     
-    def combine_fname_sim(self, all_filenames, similarity,indices):
+    def combine_fname_sim(self, all_filenames, similarity,indices, all_top_words):
         all_filenames_pd = pd.DataFrame(all_filenames,columns=["filename","title"])
+        all_top_words_pd = pd.DataFrame(all_top_words, columns=["filename", "top_words"])
         similarity_pd = pd.DataFrame(similarity[0],columns=["similarity"])
         result_filenames = all_filenames_pd.iloc[indices[0]]
+        result_topwords = all_top_words_pd.iloc[indices[0]]
+        result_topwords = result_topwords.reset_index(drop=True)
         result_filenames = result_filenames.reset_index(drop=True)
         result = result_filenames.join(similarity_pd)
+        result = result.join(result_topwords.iloc[:,1])
         result.sort_values("similarity", inplace=True, ascending=False)
         result_array = np.array(result)
+        print(result_array)
         return result_array
