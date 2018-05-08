@@ -1,0 +1,6 @@
+all:
+	pip install -r requirements.txt
+	@echo initialising vectors...
+	python init.py
+	@echo running app...
+	python searchEngine.py
