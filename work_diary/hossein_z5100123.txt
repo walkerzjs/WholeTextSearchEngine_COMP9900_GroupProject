@@ -1,0 +1,13 @@
+Mohammadhossein Nematollahi
+Z5100123
+Project Diary
+Comp9900 Semester 1, 2018
+
+Week 2  forming the group, deciding about the project, talk about some of possible solutions
+Week 3  start working on project proposal, make the epic part more proper, add one epic, do the aim and background part, do the methodologi part, make a project graph
+        meeting with team members on Friday, talk about the project, job descriptions
+Week 4  having regular team meeting, talk to tutor about the last week, talk about the proposal, make some clearifacation about agile, assigning responsibility to each team member
+        start working on the text clearifacation, start on text extraction, work on text vectorization using scklearn library and tfidfvectorizer
+week 5  working on the structure of functions, meeting with team members talking about the integration of functions
+        have a meeting on wednesday, check the progress of the project, work on the final version of functions that I am responsible for
+week 6

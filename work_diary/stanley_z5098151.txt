@@ -1,0 +1,27 @@
+Week 2
+Group formed, created Trello and BitBucket accounts
+
+Week 3
+Decided the topic, discussed about what algorithms are we going to use
+Created the project proposal
+
+Week 4
+Assigning tasks to each teammates
+started working on the web interface
+
+Week 5
+Got a simple working interface
+Added paging and upload function
+
+Week 6
+trying to fix my branch
+was not able to run or commit
+
+Week 7
+Fixed the branch issue with Hendri and Jacob's help
+Implemented a simple login and register function with Hendri
+
+Week 8
+Improved login function
+Modified templates, added logo and ico
+Minor UI fixes
