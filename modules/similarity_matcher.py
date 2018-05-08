@@ -40,6 +40,7 @@ class simi_matcher:
     def combine_fname_sim(self, all_filenames, similarity,indices, all_top_words):
         all_filenames_pd = pd.DataFrame(all_filenames,columns=["filename","title"])
         all_top_words_pd = pd.DataFrame(all_top_words, columns=["filename", "top_words"])
+        # print(all_top_words_pd)
         similarity_pd = pd.DataFrame(similarity[0],columns=["similarity"])
         result_filenames = all_filenames_pd.iloc[indices[0]]
         result_topwords = all_top_words_pd.iloc[indices[0]]
@@ -49,5 +50,5 @@ class simi_matcher:
         result = result.join(result_topwords.iloc[:,1])
         result.sort_values("similarity", inplace=True, ascending=False)
         result_array = np.array(result)
-        print(result_array)
+        # print(result_array)
         return result_array

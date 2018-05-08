@@ -1,78 +1,259 @@
-<!doctype html>
-<html>
-    <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="shortcut icon" href="static/favicon.ico" />
-    <title>Legal Case Search Engine</title>
-	<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-    #text_area{
-        height: 100%
-    }
-    iframe{
-            height:100%
-    }
-    </style>
+  <!-- SITE TITTLE -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Legal Case Search Engine</title>
 
-    </head>
-    <body>
-{#        <form method="POST" id = "text_area">#}
-        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark justify-content-between" >
+  <!-- PLUGINS CSS STYLE -->
+  <link href="../static/UI-stuff/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link href="../static/UI-stuff/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="../static/UI-stuff/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Owl Carousel -->
+  <link href="../static/UI-stuff/plugins/slick-carousel/slick/slick.css" rel="stylesheet">
+  <link href="../static/UI-stuff/plugins/slick-carousel/slick/slick-theme.css" rel="stylesheet">
+  <!-- Fancy Box -->
+  <link href="../static/UI-stuff/plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet">
+  <link href="../static/UI-stuff/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+  <link href="../static/UI-stuff/plugins/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
+  <!-- CUSTOM CSS -->
+  <link href="../static/UI-stuff/css/style.css" rel="stylesheet">
 
-            <a class="navbar-brand" href="{{url_for('home')}}"><h3>Legal Case Search Engine</h3></a>
+  <!-- FAVICON -->
+  <link href="img/favicon.png" rel="shortcut icon">
 
-			<div class="form-inline">
-				<a class="navbar-brand" href="{{url_for('show_all',page=1)}}"> All Articles&#160 </a>
-				<a class="navbar-brand" href="{{url_for('upload')}}"> Upload Articles&#160 </a>
-				<a class="navbar-brand" href="https://www.patreon.com/"> Support Us </a>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+
+<body class="body-wrapper">
+
+
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<nav class="navbar navbar-expand-lg  navigation">
+					<a class="navbar-brand" href="{{url_for('home')}}">
+						<img src="../static/UI-stuff/images/logo-jud-small.png" alt="">
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav ml-auto main-nav ">
+							<li class="nav-item active">
+								<a class="nav-link" href="{{url_for('home')}}">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{url_for('show_all',page=1)}}">All Cases</a>
+							</li>
+							<li class="nav-item dropdown dropdown-slide">
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Search By Whole Case <span><i class="fa fa-angle-down"></i></span>
+								</a>
+								<!-- Dropdown list -->
+								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item" href="{{ url_for('upload', t='file') }}">Upload a Case File</a>
+									<a class="dropdown-item" href="{{ url_for('upload', t='plain') }}">Input your Case</a>
+								</div>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="dashboard.html">About Us</a>
+							</li>
+						</ul>
+						<ul class="navbar-nav ml-auto mt-10">
+							<li class="nav-item">
+								<a class="nav-link login-button" href="home.html">Logout</a>
+							</li>
+							<!-- <li class="nav-item"> -->
+								<!-- <a class="nav-link add-button" href="#"><i class="fa fa-plus-circle"></i> Add Listing</a> -->
+							<!-- </li> -->
+						</ul>
+					</div>
+				</nav>
 			</div>
-        <form method="POST", action = {{ url_for("search") }}
-		
-			<div class="form-inline">
-				<input class="form-control" type="text" placeholder="Search by important words" aria-label="Search" name="search" size="50">
-				<span class="input-group-btn">
-					<button class="btn btn-secondary" type="submit" name="btn" value="s_name">&#x1F50E Title</button>
-				</span>
-				<span class="input-group-btn">
-					<button class="btn btn-secondary" type="submit" name="btn" value="s_post">&#x1F50E Content</button>
-				</span>
-			</div>
-        </form>
-		</nav>
-		
-		<br><br><br><br>
-		<h2>Here are the similar articles:</h2>
-		{% for link,title, similarity, top_words in articles %}
-            <div>
-            <p> Similarity: {{ similarity|round(2)}}<a  href="{{url_for('showing_article',link=link)}}">  {{title}}</a></p>
-            <h6>Top Important Words:</h6><p>{{ top_words[:50] }}</p>
-            <br>
-            </div>
-		{% endfor %}
-        <br><br>
-		
-		
-        <nav class="navbar navbar-expand-md bg-dark justify-content-between" >
-        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" >
-			{% if total > 10 %}
-            <div class="btn-group btn-group-lg" role="group" aria-label="First group">
-				<form method="POST" >
+		</div>
+	</div>
+</section>
 
-					{% for i in range( 1,  (total//100) + 1 ) %}
-{#					<button type="submit" class="btn btn-secondary" herf="{{url_for('show_search_result',page= i)}}">{{i}}</button>#}
-                        <a href="{{url_for('show_search_result',page= i)}}" class="btn btn-secondary">{{i}}</a>
+
+<!--===============================
+=            Hero Area            =
+================================-->
+
+<section class="hero-area bg-1 text-center overly">
+	<!-- Container Start -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Header Contetnt -->
+				<div class="content-block">
+					<h1>Find Similar Cases Like Yours </h1>
+					<p>Join the millions who buy and sell from each other <br> everyday in local communities around the world</p>
+					<div class="short-popular-category-list text-center">
+						<h2>Popular Case Category</h2>
+						<ul class="list-inline">
+							<li class="list-inline-item">
+								<a href=""><i class="fa fa-gavel"></i> Financial</a></li>
+							<li class="list-inline-item">
+								<a href=""><i class="fa fa-gavel"></i> Family</a>
+							</li>
+							<li class="list-inline-item">
+								<a href=""><i class="fa fa-gavel"></i> Accident</a>
+							</li>
+							<li class="list-inline-item">
+								<a href=""><i class="fa fa-gavel"></i> Insurance</a>
+							</li>
+							<li class="list-inline-item">
+								<a href=""><i class="fa fa-gavel"></i> Fight</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+				<!-- Search Results -->
+
+
+			</div>
+		</div>
+	</div>
+	<!-- Container End -->
+</section>
+
+<!--results-->
+				<div class="show-results">
+					{% for link,title, similarity, top_words in articles %}
+						<button class="accordion">{{title}}</button>
+						<div class="panel">
+						  <p>
+      							<ul class="list-group">
+									<li class="list-group-item" style="text-align: left">This Case is Similar to Your case with the Similarity Score of: <span style="color: green">{{ similarity|round(2)}} </span></li>
+									<li class="list-group-item" style="text-align: left">Top Important Keyword in this Case: <br> {{ top_words[:50] }}</li>
+									<li class="list-group-item"><a  href="{{url_for('showing_article',link=link, searching="True")}}">Check this Case</a></li>
+      							</ul>
+						  </p>
+						</div>
 					{% endfor %}
-					
-				</form>
-            </div>
-				<font size="4" color="#1E90FF">
-					&#160&#160 <u>Page: {{ page }}/{{ total//100 }}</u>
-				</font>
-			{% endif %}
+				<div style="text-align: center">
+					<nav class="pagentation">
+						<div>
+							{% if total > 10 %}
+							<div >
+								<form method="POST">
+									<!--my code-->
+									{% if page - 2 <= 0 %}
+										{% set start = 1 %}
+									{% else %}
+										{% set start = page - 2 %}
+									{% endif %}
+									{% if page + 2 > (total//10) + 1 %}
+										{% set end = (total//10) %}
+									{% else %}
+										{% set end = page + 2 %}
+									{% endif %}
+									{% if page == 1 and (total//10) + 1 > 5 %}
+										{% set end = 5 %}
+									{% endif %}
+									{% if page == 2 and (total//10) + 1 > 5 %}
+										{% set end = 5 %}
+									{% endif %}
+									<div class="fa fa-arrow-left"></div>
+									{% for i in range(start, end + 1) %}
+										<div class="pagination">
+										{% if i == page %}
+											<a href="{{url_for('show_search_result',page= i)}}" class="active">{{ i }}</a>
+										{% else %}
+											<a href="{{url_for('show_search_result',page= i)}}">{{ i }}</a>
+										{% endif %}
+										</div>
+									{% endfor %}
+									<div class="fa fa-arrow-right "></div>
+
+								</form>
+							</div>
+							{% endif %}
+						</div>
+					</nav>
+					<!--<font size="4" color="#1E90FF">-->
+						<!--&#160&#160 <u>Page: {{ page }}/{{ total//100 }}</u>-->
+					<!--</font>-->
+				</div>
+				</div>
+
+<!-- Page numbers -->
+
+
+
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        this.classList.toggle("active-mine");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    });
+}
+</script>
+
+<!--============================
+=            Footer            =
+=============================-->
+<!-- Footer Bottom -->
+<footer class="footer-bottom">
+    <!-- Container Start -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-12">
+          <!-- Copyright -->
+          <div class="copyright">
+            <p>Copyright © 2018. All Rights Reserved</p>
+          </div>
         </div>
-        </nav>
-		
-		
-        </form>
-   </body>
+        <div class="col-sm-6 col-12">
+        </div>
+      </div>
+    </div>
+    <!-- Container End -->
+    <!-- To Top -->
+    <div class="top-to">
+      <a id="top" class="" href=""><i class="fa fa-angle-up"></i></a>
+    </div>
+</footer>
+
+  <!-- JAVASCRIPTS -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+  <script src="plugins/tether/js/tether.min.js"></script>
+  <script src="plugins/raty/jquery.raty-fa.js"></script>
+  <script src="plugins/bootstrap/dist/js/popper.min.js"></script>
+  <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="plugins/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+  <script src="plugins/slick-carousel/slick/slick.min.js"></script>
+  <script src="plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+  <script src="plugins/fancybox/jquery.fancybox.pack.js"></script>
+  <script src="plugins/smoothscroll/SmoothScroll.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+  <script src="js/scripts.js"></script>
+
+</body>
+
 </html>
+

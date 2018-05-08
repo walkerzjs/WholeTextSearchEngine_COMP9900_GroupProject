@@ -90,7 +90,7 @@ def get_top_words_two_gram(filepath, vectorizer, top_n=100):
         for feature in top_features:
             if feature[0] in pairs:
                 top_words.append(feature[0])
-        print(top_words)
+        # print(top_words)
         return top_words
 # res1 = get_top_words_one_gram(filepath1, vectorizer)
 # res2 = get_top_words_one_gram(filepath2, vectorizer)

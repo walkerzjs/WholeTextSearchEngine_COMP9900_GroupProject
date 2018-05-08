@@ -40,8 +40,8 @@ class html_parser:
     #            pickle.dump(all_filenames, fp)
         all_filenames = []
         for filename in all_files:
-            file_id = re.sub(r"^.*/","",filename)
-            #print(filename)
+            file_id = re.sub(r"^.*\/","",filename)
+            file_id = re.sub("^.*[\\\\]", "", file_id)
             with open(filename) as f:
                 title = self.extract_html_title(f)
                 all_filenames.append([file_id, title])

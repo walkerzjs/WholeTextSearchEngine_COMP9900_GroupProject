@@ -1,46 +1,7 @@
-<!doctype html>
-<html>
-    <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="shortcut icon" href="static/favicon.ico" />
-    <title>Legal Case Search Engine</title>
-	<style>
-    .boxed {
-        width: 100%;
-        padding: 10px;
-        border: 5px solid gray;
-        margin: 0;
-    }
-    </style>
+{% extends "default.html" %}
 
-    </head>
-    <body>
-{#        <form method="POST">#}
-        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark justify-content-between" >
+{% block body_contents %}
 
-            <a class="navbar-brand" href="{{url_for('home')}}"><h3>Legal Case Search Engine</h3></a>
-
-			<div class="form-inline">
-				<a class="navbar-brand" href="{{url_for('show_all',page=1)}}"> All Articles&#160 </a>
-				<a class="navbar-brand" href="{{url_for('upload')}}"> Upload Articles&#160 </a>
-				<a class="navbar-brand" href="https://www.patreon.com/"> Support Us </a>
-			</div>
-{#        </form>#}
-{#		<form>#}
-            <form method="POST", action = {{ url_for("search") }}
-			<div class="form-inline">
-				<input class="form-control" type="text" placeholder="Search by important words" aria-label="Search" name="search" size="50">
-				<span class="input-group-btn">
-					<button class="btn btn-secondary" type="submit" name="btn" value="s_name">&#x1F50E Title</button>
-				</span>
-				<span class="input-group-btn">
-					<button class="btn btn-secondary" type="submit" name="btn" value="s_post">&#x1F50E Content</button>
-				</span>
-			</div>
-            </form>
-		</nav>
-		
-        <br><br>
         <br><br>
         <form method="POST">
 		<span class="badge badge-light"><h4>Add a new article:</h4></span>
@@ -63,5 +24,5 @@
 		{% if message %}
 			<h2>{{message}}</h2>
 		{% endif %}
-   </body>
-</html>
+
+{% endblock %}

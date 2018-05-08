@@ -120,6 +120,7 @@ class vector_operator():
         all_file_topwords = []
         for filename in all_files:
             file_id = re.sub(r"^.*/", "", filename)
+            file_id = re.sub("^.*[\\\\]", "", file_id)
             # print(filename)
             top_words = self.get_top_words_one_gram(filename, indices, features, hp)
             with open(filename) as f:
