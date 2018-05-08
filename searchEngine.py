@@ -313,6 +313,6 @@ def highlight (link):
 
 if __name__ == '__main__':
     global logged
-    logged = True
+    logged = False
     app.secret_key = os.urandom(12)
     app.run(debug=True, port=1345)
