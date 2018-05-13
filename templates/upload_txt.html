@@ -1,92 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
 
-  <!-- SITE TITTLE -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Legal Case Search Engine</title>
-
-  <!-- PLUGINS CSS STYLE -->
-  <link href="../static/UI-stuff/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-  <!-- Bootstrap -->
-  <link href="../static/UI-stuff/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link href="../static/UI-stuff/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <!-- Owl Carousel -->
-  <link href="../static/UI-stuff/plugins/slick-carousel/slick/slick.css" rel="stylesheet">
-  <link href="../static/UI-stuff/plugins/slick-carousel/slick/slick-theme.css" rel="stylesheet">
-  <!-- Fancy Box -->
-  <link href="../static/UI-stuff/plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet">
-  <link href="../static/UI-stuff/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-  <link href="../static/UI-stuff/plugins/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
-  <!-- CUSTOM CSS -->
-  <link href="../static/UI-stuff/css/style.css" rel="stylesheet">
-
-  <!-- FAVICON -->
-  <link href="img/favicon.png" rel="shortcut icon">
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-</head>
-
-<body class="body-wrapper">
-
-
-<section>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<nav class="navbar navbar-expand-lg  navigation">
-					<a class="navbar-brand" href="{{url_for('home')}}">
-						<img src="../static/UI-stuff/images/logo-jud-small.png" alt="">
-					</a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav ml-auto main-nav ">
-							<li class="nav-item active">
-								<a class="nav-link" href="{{url_for('home')}}">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{url_for('show_all',page=1)}}">All Cases</a>
-							</li>
-							<li class="nav-item dropdown dropdown-slide">
-								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Search By Whole Case <span><i class="fa fa-angle-down"></i></span>
-								</a>
-								<!-- Dropdown list -->
-								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="{{ url_for('upload', t='file') }}">Upload a Case File</a>
-									<a class="dropdown-item" href="{{ url_for('upload', t='plain') }}">Input your Case</a>
-								</div>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{ url_for('about_us') }}">About Us</a>
-							</li>
-						</ul>
-						<ul class="navbar-nav ml-auto mt-10">
-							<li class="nav-item">
-								<a class="nav-link login-button" href="{{url_for('logout')}}">Logout</a>
-							</li>
-							<!-- <li class="nav-item"> -->
-								<!-- <a class="nav-link add-button" href="#"><i class="fa fa-plus-circle"></i> Add Listing</a> -->
-							<!-- </li> -->
-						</ul>
-					</div>
-				</nav>
-			</div>
-		</div>
-	</div>
-</section>
-
+{% block body_contents %}
 <!--===============================
 =            Hero Area            =
 ================================-->
@@ -198,24 +112,6 @@
     </div>
 </footer>
 
-  <!-- JAVASCRIPTS -->
-  <script src="plugins/jquery/jquery.min.js"></script>
-  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-  <script src="plugins/tether/js/tether.min.js"></script>
-  <script src="plugins/raty/jquery.raty-fa.js"></script>
-  <script src="plugins/bootstrap/dist/js/popper.min.js"></script>
-  <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="plugins/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
-  <script src="plugins/slick-carousel/slick/slick.min.js"></script>
-  <script src="plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-  <script src="plugins/fancybox/jquery.fancybox.pack.js"></script>
-  <script src="plugins/smoothscroll/SmoothScroll.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-  <script src="js/scripts.js"></script>
-
-</body>
-
-</html>
-
+{% endblock %}
 
 

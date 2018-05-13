@@ -80,13 +80,7 @@ def register():
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if not logged:  return redirect(url_for('login', err_msg="Please login."))
-    files = os.listdir("static/NSW/")
-    files = [random.choice(files) for i in range(10)]
-    articles = collections.OrderedDict()
-    for i in files:
-        with open(os.path.join("static/NSW/", i)) as f:
-            title = se.hp.extract_html_title(f)
-        articles[i] = title
+    articles = get_random_articles()
     return render_template("home.html", articles=articles)
 
 @app.route('/all/p<page>', methods=['GET', 'POST'])
@@ -232,7 +226,7 @@ def logout():
 
 @app.route('/about_us')
 def about_us():
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", logged=logged)
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -267,6 +261,21 @@ def authentication (username, password):
                     return username
 
     return None
+
+def get_random_articles ():
+    files = os.listdir("static/NSW/")
+    files = [random.choice(files) for i in range(50)]
+    articles = collections.OrderedDict()
+    for i in files:
+        title = None
+        while title is None:
+            i = random.choice(files)
+            with open(os.path.join("static/NSW/", i)) as f:
+                title = se.hp.extract_html_title(f)
+            f.close()
+        articles[i] = title
+        if len(articles) >= 10: break
+    return articles
 
 def highlight (link):
     files = os.listdir("static/")
