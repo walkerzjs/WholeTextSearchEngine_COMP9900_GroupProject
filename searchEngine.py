@@ -153,10 +153,16 @@ def upload():
             message = "Uploaded successfully!"
             return redirect(url_for('show_search_result',page = 1))
     type = request.args.get('t')
+    if type=='fav':
+        input = request.args.get("fav")
+        if re.match("\w", input):
+            message = "Uploaded successfully!"
+        current_result = se.find_similarity(input, input_savepath="static/reduced_vector", result_size=200)
+        return redirect(url_for('show_search_result', page=1))
+
     if type=="file":
         return render_template("upload_txt.html", message=message)
     return render_template("upload_plain.html", message=message)
-
 
 
 @app.route('/search_result/p<page>', methods=['GET','POST'])
@@ -192,20 +198,27 @@ def searchkw():
     search_content_title = request.form['title']
     search_content_content = request.form['content']
 
-    print(search_content_title)
-    print(search_content_content)
+    # print(search_content_title)
+    # print(search_content_content)
 
-    # search_method = request.form['btn']
-
-    # print(search_method)
-
-    print("in the searchkw")
-    # print(search_content)
-
-    if search_content_content:
+    if search_content_content and search_content_title:
+        print("1")
+        results = []
+        current_result_temp = keyword_search.keyword_content(search_content_content)
+        for item in current_result_temp:
+            if search_content_title.lower() in item[1].lower():
+                results.append(item)
+        current_result = results
+    elif search_content_content:
+        print("2")
         current_result = keyword_search.keyword_content(search_content_content)
     elif search_content_title:
+        print("3")
         current_result = keyword_search.keyword_title(search_content_title)
+    # print(current_result)
+    else:
+        print("4")
+        return redirect(url_for('home'))
     return redirect(url_for('searchkw_result',page = 1))
 
 

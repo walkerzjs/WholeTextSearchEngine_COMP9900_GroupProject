@@ -14,25 +14,27 @@
 				<!-- Header Contetnt -->
 				<div class="content-block">
 					<h1>Find Similar Cases Like Yours </h1>
-					<p>Join the millions who buy and sell from each other <br> everyday in local communities around the world</p>
+					<p>Now you can start searching for similar Legal Cases like yours</p>
 					<div class="short-popular-category-list text-center">
 						<h2>Popular Case Category</h2>
+						<form>
 						<ul class="list-inline">
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Financial</a></li>
+								<a href="{{ url_for('upload', t='fav', fav='financial')}}"><i class="fa fa-gavel"></i> Financial</a></li>
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Family</a>
+								<a href="{{ url_for('upload', t='fav', fav='family')}}"><i class="fa fa-gavel"></i> Family</a>
 							</li>
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Accident</a>
+								<a href="{{ url_for('upload', t='fav', fav='accident')}}"><i class="fa fa-gavel"></i> Accident</a>
 							</li>
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Insurance</a>
+								<a href="{{ url_for('upload', t='fav', fav='insurance')}}"><i class="fa fa-gavel"></i> Insurance</a>
 							</li>
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Fight</a>
+								<a href="{{ url_for('upload', t='fav', fav='fight')}}"><i class="fa fa-gavel"></i> Fight</a>
 							</li>
 						</ul>
+						</form>
 					</div>
 
 				</div>
@@ -48,7 +50,7 @@
 <!--results-->
 				<div class="show-results">
 					{% for link,title, similarity, top_words in articles %}
-						<button class="accordion">{{title}}</button>
+						<button class="accordion"><div style="display: table; clear: both; width: 100%"><span style="float: left; width: 3%; text-align: left">{{loop.index}}</span><span style="float: left; width: 87%">{{title}}</span><span style="float: left; width: 10%">Score: {{ similarity|round(2) }}</span></div></button>
 						<div class="panel">
 						  <p>
       							<ul class="list-group">

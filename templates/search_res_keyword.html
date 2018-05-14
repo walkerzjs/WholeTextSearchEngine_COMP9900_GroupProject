@@ -14,25 +14,27 @@
 				<!-- Header Contetnt -->
 				<div class="content-block">
 					<h1>Find Similar Cases Like Yours </h1>
-					<p>Join the millions who buy and sell from each other <br> everyday in local communities around the world</p>
+					<p>Now you can start searching for similar Legal Cases like yours</p>
 					<div class="short-popular-category-list text-center">
 						<h2>Popular Case Category</h2>
+						<form>
 						<ul class="list-inline">
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Financial</a></li>
+								<a href="{{ url_for('upload', t='fav', fav='financial')}}"><i class="fa fa-gavel"></i> Financial</a></li>
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Family</a>
+								<a href="{{ url_for('upload', t='fav', fav='family')}}"><i class="fa fa-gavel"></i> Family</a>
 							</li>
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Accident</a>
+								<a href="{{ url_for('upload', t='fav', fav='accident')}}"><i class="fa fa-gavel"></i> Accident</a>
 							</li>
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Insurance</a>
+								<a href="{{ url_for('upload', t='fav', fav='insurance')}}"><i class="fa fa-gavel"></i> Insurance</a>
 							</li>
 							<li class="list-inline-item">
-								<a href=""><i class="fa fa-gavel"></i> Fight</a>
+								<a href="{{ url_for('upload', t='fav', fav='fight')}}"><i class="fa fa-gavel"></i> Fight</a>
 							</li>
 						</ul>
+						</form>
 					</div>
 
 				</div>
@@ -48,9 +50,10 @@
 <!--results-->
 				<div class="show-results">
 					{% for link,title in articles %}
-					<a  href="{{url_for('showing_article',link=link, searching="key")}}"><button class="accordion">{{title}}</button></a>
+					<a  href="{{url_for('showing_article',link=link, searching="key")}}"><button class="accordion-2">{{title}}</button></a>
 					{% endfor %}
 				<div style="text-align: center">
+
 					<nav class="pagentation">
 						<div>
 							{% if total > 10 %}
@@ -101,22 +104,22 @@
 
 
 
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
+<!--<script>-->
+<!--var acc = document.getElementsByClassName("accordion");-->
+<!--var i;-->
 
-for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-        this.classList.toggle("active-mine");
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    });
-}
-</script>
+<!--for (i = 0; i < acc.length; i++) {-->
+    <!--acc[i].addEventListener("click", function() {-->
+        <!--this.classList.toggle("active-mine");-->
+        <!--var panel = this.nextElementSibling;-->
+        <!--if (panel.style.display === "block") {-->
+            <!--panel.style.display = "none";-->
+        <!--} else {-->
+            <!--panel.style.display = "block";-->
+        <!--}-->
+    <!--});-->
+<!--}-->
+<!--</script>-->
 
 <!--============================
 =            Footer            =
