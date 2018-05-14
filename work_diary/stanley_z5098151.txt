@@ -25,3 +25,15 @@ Week 8
 Improved login function
 Modified templates, added logo and ico
 Minor UI fixes
+
+Week 9
+Bug fixing
+Integrating and merging works(mainly UI) from 3 teammates
+Highlighting keywords in search result
+
+Week 10
+Testing and bug fixing
+Improvments(Hossein) and fixes for UI
+
+Week 11
+Final checking and bug fixing
