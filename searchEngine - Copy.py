@@ -2,8 +2,10 @@
 
 import os, re, collections, datetime, operator, random
 #change working dir
-here = os.path.dirname(os.path.abspath(__file__))
+here = os.path.dirname(__file__)
+#print(os.getcwd())
 os.chdir(here)
+#print(os.getcwd())
 from flask import Flask, request, render_template, redirect, url_for, make_response, session
 from werkzeug import secure_filename
 import searchEngine_backend as se
@@ -86,8 +88,8 @@ def show_all(page):
     if not logged:  return redirect(url_for('login', err_msg="Please login."))
     page = int(page)
     total = int(len(os.listdir("static/NSW/")))
-    ##print(total)
-    ##print(page)
+    #print(total)
+    #print(page)
     articles = get_all_aritcles(page, total)
 
     return render_template("all.html", articles=articles, page=page, total=total)
@@ -96,12 +98,13 @@ def show_all(page):
 def showing_article(link):
     if not logged:  return redirect(url_for('login', err_msg="Please login."))
     searching = request.args.get('searching')
-    keyword = request.args.get('keyword')
+    print(searching)
 
     if searching == "True":
         link = highlight(link)
-    # elif searching == "key":
-    #     link = highlight(link)
+    elif searching == "key":
+        link = re.sub("NSW[\\\\|\/]", "", link)
+        link = "NSW/" + link
     else:
         link = "NSW/" + link
     return render_template("showing.html", link=link)
@@ -119,27 +122,27 @@ def upload():
             input = request.form["upload_new"]
             if re.match("\w", input):
                 message = "Uploaded successfully!"
-            ##print(input)
-            ##print(type(input))
+            #print(input)
+            #print(type(input))
             #start to transform input text and compute similarities.
 
-            ##print("parsed: {}".format(input_parsed))
-            ##print(type(input_parsed))
+            #print("parsed: {}".format(input_parsed))
+            #print(type(input_parsed))
             # input_parsed = se.hp.parse_input_text(input)
             # input_vector = se.vo.transform_text_not_first_time(se.vectorizer,[input_parsed])
             # input_reduced = se.vo.dim_reduction_not_first(input_vector, se.reducer,"static/reduced_vector")
             # distances, indices, similarity = se.sm.simi_matching(input_reduced,se.reduced_vectors,200)
             # current_result = se.sm.combine_fname_sim(se.all_filenames, similarity, indices)
             current_result = se.find_similarity(input, input_savepath = "static/reduced_vector", result_size = 200)
-            ##print(current_result[:,[0,2,1]])
-            ##print(input_parsed)
+            #print(current_result[:,[0,2,1]])
+            #print(input_parsed)
             return redirect(url_for('show_search_result',page = 1))
         elif button == "upload_file":
             f = request.files['file']
 
-            # #print(f)
+            # print(f)
             file_name = secure_filename(f.filename)
-            # #print(file_name)
+            # print(file_name)
             save_path = "static/uploaded_files/{}".format(file_name)
             f.save(save_path)
             input = ""
@@ -150,16 +153,10 @@ def upload():
             message = "Uploaded successfully!"
             return redirect(url_for('show_search_result',page = 1))
     type = request.args.get('t')
-    if type=='fav':
-        input = request.args.get("fav")
-        if re.match("\w", input):
-            message = "Uploaded successfully!"
-        current_result = se.find_similarity(input, input_savepath="static/reduced_vector", result_size=200)
-        return redirect(url_for('show_search_result', page=1))
-
     if type=="file":
         return render_template("upload_txt.html", message=message)
     return render_template("upload_plain.html", message=message)
+
 
 
 @app.route('/search_result/p<page>', methods=['GET','POST'])
@@ -178,14 +175,14 @@ def show_search_result(page):
 def searchkw_result(page):
     global current_result
 
-    # #print(current_result)
+    # print(current_result)
     if not logged:  return redirect(url_for('login', err_msg="Please login."))
     page = int(page)
     #total = int(len(os.listdir("static/NSW/")))
     total = len(current_result)
     #articles = get_all_aritcles(page, total)
     articles = current_result[((page - 1) * 10):page * 10]
-    ##print(articles)
+    #print(articles)
     return render_template("search_res_keyword.html", articles=articles, page=page, total=total)
 
 
@@ -195,27 +192,20 @@ def searchkw():
     search_content_title = request.form['title']
     search_content_content = request.form['content']
 
-    # #print(search_content_title)
-    # #print(search_content_content)
+    print(search_content_title)
+    print(search_content_content)
 
-    if search_content_content and search_content_title:
-        #print("1")
-        results = []
-        current_result_temp = keyword_search.keyword_content(search_content_content)
-        for item in current_result_temp:
-            if search_content_title.lower() in item[1].lower():
-                results.append(item)
-        current_result = results
-    elif search_content_content:
-        #print("2")
+    # search_method = request.form['btn']
+
+    # print(search_method)
+
+    print("in the searchkw")
+    # print(search_content)
+
+    if search_content_content:
         current_result = keyword_search.keyword_content(search_content_content)
     elif search_content_title:
-        #print("3")
         current_result = keyword_search.keyword_title(search_content_title)
-    # #print(current_result)
-    else:
-        #print("4")
-        return redirect(url_for('home'))
     return redirect(url_for('searchkw_result',page = 1))
 
 
@@ -223,8 +213,8 @@ def searchkw():
 def search():
     global current_result
     search_content = request.form['search']
-    #print("in the search")
-    #print(search_content)
+    print("in the search")
+    print(search_content)
     current_result = se.find_similarity(search_content, input_savepath="static/reduced_vector", result_size=200)
     return redirect(url_for('show_search_result',page = 1))
 
@@ -245,7 +235,7 @@ def allowed_file(filename):
 
 def get_all_aritcles(page, total):
     list = os.listdir("static/NSW/")
-    ##print(list)
+    #print(list)
     articles = collections.OrderedDict()
     count = 1
 
@@ -257,7 +247,7 @@ def get_all_aritcles(page, total):
                 articles[i] = title
 
         count += 1
-    ##print(articles)
+    #print(articles)
     return articles
 
 def authentication (username, password):
@@ -290,18 +280,17 @@ def get_random_articles ():
 def highlight (link):
     files = os.listdir("static/")
     for file in files:
-        # #print(file)
+        # print(file)
         if re.match(".*\.html$", file):
             os.remove("static/" + file)
     page = 1
 
-    articles = current_result[((page - 1) * 100):page * 100]
-    # articles = current_result[((page - 1) * 100):page * 100, [0, 1, 2, 3]]
+    articles = current_result[((page - 1) * 100):page * 100, [0, 1, 2, 3]]
     for link_a, b, c, top_words in articles:
         if link_a == link:
             break
-
-    with open(os.path.join("static/NSW", link), "r") as f:
+    print(link)
+    with open(os.path.join("static/", link), "r") as f:
         lines = []
         for line in f:
             if re.match("^\s*$", line) or re.match("^\s*<title>", line):
@@ -312,7 +301,7 @@ def highlight (link):
                 if re.match("\\b<mark>" + word + "<\/mark>\\b", line, flags=re.I):
                     continue
                 if re.match(r".*" + word + ".*", line, flags=re.I):
-                    # ##print(line)
+                    # print(line)
                     found = re.findall("\\b" + word + "\\b", line, flags=re.I)
                     if found:
                         line = re.sub("\\b" + word + "\\b", "<mark>" + found[0] + "</mark>", line, flags=re.I)
@@ -333,6 +322,6 @@ def highlight (link):
 
 if __name__ == '__main__':
     global logged
-    logged = False
+    logged = True
     app.secret_key = os.urandom(12)
     app.run(debug=True, port=1345)

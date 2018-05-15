@@ -84,9 +84,10 @@ class vector_operator():
         reduced_vectors = utilities.load_file(path)
         return reduced_vectors
 
-    # reffered to the answer of https://stackoverflow.com/questions/25217510/how-to-see-top-n-entries-of-term-document-matrix-after-tfidf-in-scikit-learn
+    # Acknowledgement: part of the function(extracting top important words) below reffered to the answer of https://stackoverflow.com/questions/25217510/how-to-see-top-n-entries-of-term-document-matrix-after-tfidf-in-scikit-learn
+    # The function mainly extracts the top important words from the result produced by the TF-IDF algorithm. This function will only extract the 1-gram features.(words)
     def get_top_words_one_gram(self, filepath, indices, features, html_parser, num=100):
-        with open(filepath) as file:
+        with open(filepath, encoding="ISO-8859-1") as file:
             input = file.read()
             input_parsed = html_parser.parse_input_text(input)
             words = re.split(" ", input_parsed)

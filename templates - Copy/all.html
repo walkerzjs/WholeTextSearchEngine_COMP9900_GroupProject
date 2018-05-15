@@ -78,9 +78,6 @@
 									{% if page == 2 and (total//10) + 1 > 5 %}
 										{% set end = 5 %}
 									{% endif %}
-									{% if (total//100) + 1 < end %}
-										{% set end = (total//100) + 1 %}
-									{% endif %}
 									<div class="fa fa-arrow-left"></div>
 									{% for i in range(start, end + 1) %}
 										<div class="pagination">

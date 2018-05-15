@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block body_contents %}
+<!--===============================
+=            Hero Area            =
+================================-->
+
+<section class="hero-area bg-1 text-center overly">
+  <!-- Container Start -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Header Contetnt -->
+        <div class="content-block">
+          <h1>Find Similar Cases Like Yours </h1>
+          <p>Join the millions who buy and sell from each other <br> everyday in local communities around the world</p>
+          <!--<div class="short-popular-category-list text-center">-->
+            <!--<h2>Popular Case Category</h2>-->
+            <!--<ul class="list-inline">-->
+              <!--<li class="list-inline-item">-->
+                <!--<a href=""><i class="fa fa-gavel"></i> Financial</a></li>-->
+              <!--<li class="list-inline-item">-->
+                <!--<a href=""><i class="fa fa-gavel"></i> Family</a>-->
+              <!--</li>-->
+              <!--<li class="list-inline-item">-->
+                <!--<a href=""><i class="fa fa-gavel"></i> Accident</a>-->
+              <!--</li>-->
+              <!--<li class="list-inline-item">-->
+                <!--<a href=""><i class="fa fa-gavel"></i> Insurance</a>-->
+              <!--</li>-->
+              <!--<li class="list-inline-item">-->
+                <!--<a href=""><i class="fa fa-gavel"></i> Fight</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+
+        </div>
+        <!-- Advance Search -->
+
+        <div class="advance-search">
+          <form method="POST", action="{{url_for('upload')}}" enctype="multipart/form-data">
+            <div class="row">
+              <!-- Store Search -->
+              <div class="col-lg-6 col-md-12">
+                <div class="block d-flex">
+                  <span class="custom-file" style="text-align: left">
+                    <input type="file" name="file" id="file" class="custom-file-input">
+                    <span class="custom-file-control"></span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                  <!-- Search Button -->
+                  <button type="submit" class="btn btn-main" name="btn" value="upload_file" style="margin-left: 385px">Upload</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+<!-- ###################### -->
+
+
+
+<!-- ####################### -->
+
+
+
+      </div>
+    </div>
+  </div>
+  <!-- Container End -->
+</section>
+
+<section class="popular-deals section bg-gray">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-title">
+<!--           <h2>Some Random Cases</h2>
+          <p>The following cases are some random cases from our Database.</p> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!--============================
+=            Footer            =
+=============================-->
+<!-- Footer Bottom -->
+<footer class="footer-bottom">
+    <!-- Container Start -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-12">
+          <!-- Copyright -->
+          <div class="copyright">
+            <p>Copyright © 2018. All Rights Reserved</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-12">
+        </div>
+      </div>
+    </div>
+    <!-- Container End -->
+    <!-- To Top -->
+    <div class="top-to">
+      <a id="top" class="" href=""><i class="fa fa-angle-up"></i></a>
+    </div>
+</footer>
+
+{% endblock %}
+
+

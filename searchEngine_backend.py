@@ -24,7 +24,7 @@ vectorizer = vo.load_vectorizer()
 reducer = vo.load_dim_red_model()
 reduced_vectors = vo.load_reduced_vectors()
 top_words = vo.load_all_top_words_not_first()
-# print(all_filenames)
+# #print(all_filenames)
 
 
 def find_similarity(input, input_savepath = "static/reduced_vector", result_size = 200):
@@ -50,13 +50,13 @@ def find_similarity(input, input_savepath = "static/reduced_vector", result_size
 #         input = file.read()
 #         input_parsed = hp.parse_input_text(input)
 #         words = re.split(" ",input_parsed)
-#         # print("input: {}".format(input_parsed))
-#         # print("words: {}".format(words))
+#         # #print("input: {}".format(input_parsed))
+#         # #print("words: {}".format(words))
 #         indices = np.argsort(vectorizer.idf_)[::-1]
 #         features = vectorizer.get_feature_names()
 #         top_n = 10000
 #         top_features = [features[i] for i in indices[:top_n]]
-#         # print(wordnet.synsets("word"))
+#         # #print(wordnet.synsets("word"))
 #         words = set(words)
 #         result = []
 #         for feature in top_features:
@@ -64,48 +64,49 @@ def find_similarity(input, input_savepath = "static/reduced_vector", result_size
 #                 result.append(feature)
 #                 if len(result)==num:
 #                     break
-#         # print(result)
+#         # #print(result)
 #         return result
 
 # referred to the answer of https://stackoverflow.com/questions/25217510/how-to-see-top-n-entries-of-term-document-matrix-after-tfidf-in-scikit-learn
-def get_top_words_two_gram(filepath, vectorizer, top_n=100):
-    features_by_gram = defaultdict(list)
-    for f, w in zip(vectorizer.get_feature_names(), vectorizer.idf_):
-        features_by_gram[len(f.split(' '))].append((f, w))
-    # print(features_by_gram.items())
-    # print(features_by_gram[2])
-    # for gram, features in features_by_gram.items():
-    #    top_features = sorted(features, key=lambda x: x[1], reverse=True)[:top_n]
-    #    top_features = [f[0] for f in top_features]
-    #    print ('{}-gram top:'.format(gram), top_features)
-    with open(filepath) as file:
-        input = file.read()
-        input_parsed = hp.parse_input_text(input)
-        words = re.split(" ", input_parsed)
-        pairs = [words[i] + " " + words[i + 1] for i in range(len(words) - 1)]
-        # print(pairs)
-        
-        top_words = []
-        top_features = sorted(features_by_gram[2], key=lambda x: x[1], reverse=True)
-        for feature in top_features:
-            if feature[0] in pairs:
-                top_words.append(feature[0])
-        # print(top_words)
-        return top_words
+#The function mainly extracts the top important words from the result produced by the TF-IDF algorithm.
+# def get_top_words_two_gram(filepath, vectorizer, top_n=100):
+#     features_by_gram = defaultdict(list)
+#     for f, w in zip(vectorizer.get_feature_names(), vectorizer.idf_):
+#         features_by_gram[len(f.split(' '))].append((f, w))
+#     # #print(features_by_gram.items())
+#     # #print(features_by_gram[2])
+#     # for gram, features in features_by_gram.items():
+#     #    top_features = sorted(features, key=lambda x: x[1], reverse=True)[:top_n]
+#     #    top_features = [f[0] for f in top_features]
+#     #    #print ('{}-gram top:'.format(gram), top_features)
+#     with open(filepath) as file:
+#         input = file.read()
+#         input_parsed = hp.parse_input_text(input)
+#         words = re.split(" ", input_parsed)
+#         pairs = [words[i] + " " + words[i + 1] for i in range(len(words) - 1)]
+#         # #print(pairs)
+#
+#         top_words = []
+#         top_features = sorted(features_by_gram[2], key=lambda x: x[1], reverse=True)
+#         for feature in top_features:
+#             if feature[0] in pairs:
+#                 top_words.append(feature[0])
+#         # #print(top_words)
+#         return top_words
 # res1 = get_top_words_one_gram(filepath1, vectorizer)
 # res2 = get_top_words_one_gram(filepath2, vectorizer)
 # res3 = get_top_words_one_gram(filepath3, vectorizer)
 # res4 = get_top_words_one_gram(filepath4, vectorizer)
 #
-# print(res1)
-# print(res2)
+# #print(res1)
+# #print(res2)
 # interc1 = [val for val in res1 if val in res2]
 # interc2 = [val for val in res1 if val in res3]
 # interc3 = [val for val in res1 if val in res4]
-# print(interc1)
-# print(interc2)
-# print(interc3[:10])
-# print([val for val in res2 if val in res3])
+# #print(interc1)
+# #print(interc2)
+# #print(interc3[:10])
+# #print([val for val in res2 if val in res3])
 #['paintings', 'thailand', 'methadone', 'cavity', 'grams', 'tapes', 'ba', 'recordings'
 
 
@@ -115,12 +116,12 @@ def get_top_words_two_gram(filepath, vectorizer, top_n=100):
 
 # get_top_words_two_gram(filepath3, vectorizer)
 # get_top_words_one_gram(filepath3, vectorizer)
-# print(all_filenames)
+# #print(all_filenames)
 #all_files, all_filenames = hp.load_filenames_first()
 #hp.parse_input_text("On 21 October 1993 Grahame James Daubney pleaded guilty before me to a charge on")
 import os
 # here = os.path.dirname(__file__)
-# print(here)
+# #print(here)
 
 # result = vo.load_all_top_words_first()
-# print(result)
+# #print(result)

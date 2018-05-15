@@ -11,9 +11,9 @@ def vectorise_All(contents_list):
     vectoriser.fit(contents_list)
     vectors_matrix = vectoriser.transform(contents_list)
 
-    # print(vector.shape)
-    # print("Vocabulary: {}".format(vectoriser.vocabulary_))
-    # print(vector.toarray())
+    # #print(vector.shape)
+    # #print("Vocabulary: {}".format(vectoriser.vocabulary_))
+    # #print(vector.toarray())
 
     with open('vectorizer', 'wb') as output:
             pickle.dump(vectors_matrix, output)

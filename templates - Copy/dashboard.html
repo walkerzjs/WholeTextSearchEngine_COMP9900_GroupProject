@@ -60,29 +60,28 @@
 							</li>
 							<li class="nav-item dropdown dropdown-slide">
 								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Search by Whole Case <span><i class="fa fa-angle-down"></i></span>
+									Search By Whole Case <span><i class="fa fa-angle-down"></i></span>
 								</a>
 								<!-- Dropdown list -->
 								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="{{ url_for('upload', t='file') }}">Search by Uploading a Case File</a>
-									<a class="dropdown-item" href="{{ url_for('upload', t='plain') }}">Search by Input your Case</a>
+									<a class="dropdown-item" href="{{ url_for('upload', t='file') }}">Upload a Case File</a>
+									<a class="dropdown-item" href="{{ url_for('upload', t='plain') }}">Input your Case</a>
 								</div>
 							</li>
-
-
-
 							<li class="nav-item">
 								<a class="nav-link" href="{{ url_for('about_us') }}">About Us</a>
 							</li>
 						</ul>
+
 						<ul class="navbar-nav ml-auto mt-10">
+							{% if logged %}
 							<li class="nav-item">
 								<a class="nav-link login-button" href="{{url_for('logout')}}">Logout</a>
 							</li>
-							<!-- <li class="nav-item"> -->
-								<!-- <a class="nav-link add-button" href="#"><i class="fa fa-plus-circle"></i> Add Listing</a> -->
-							<!-- </li> -->
+
+							{% endif %}
 						</ul>
+
 					</div>
 				</nav>
 			</div>
@@ -101,21 +100,21 @@
 			<div class="col-md-12">
 				<!-- Header Contetnt -->
 				<div class="content-block">
-					<h1>Legal Case Search Engine</h1>
-					<p>This search engine is made for course COMP3900/COMP9900 <br>Developed by CS-IT-Project Group</p>
+					<h1>Find Similar Students Like You </h1>
+					<p>Join the millions who spread memes to each other <br> everyday in local communities around the world</p>
 					<div class="short-popular-category-list text-center">
-						<p>Contact us:</p>
+						<h1>my names Jeff</h1>
 						<ul class="list-inline">
 							<li class="list-inline-item">
-								<a href="mailto:walkerzjs2@gmail.com"><i class="fa fa-user-circle"></i> Jacob</a></li>
+								<a href=""><i class="fa fa-user-circle"></i> Jacob</a></li>
 							<li class="list-inline-item">
-								<a href="mailto:mhnematollahi@yahoo.com"><i class="fa fa-user-o"></i> Hossein</a>
+								<a href=""><i class="fa fa-user-o"></i> Hossein</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="mailto:chansengchi@gmail.com"><i class="fa fa-user-circle-o"></i> Stanley</a>
+								<a href=""><i class="fa fa-user-circle-o"></i> Stanley</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="mailto:hendrisgia0004@gmail.com"><i class="fa fa-address-book"></i> Hendri</a>
+								<a href=""><i class="fa fa-address-book"></i> Hendri</a>
 							</li>
 						</ul>
 					</div>
@@ -150,9 +149,7 @@
     </div>
 </footer>
 
-  <!-- JAVASCRIPTS -->
-  <script src="static/UI-stuff/plugins/jquery/jquery.min.js"></script>
-  <script src="static/UI-stuff/plugins/jquery-ui/jquery-ui.min.js"></script>
+
   <script src="static/UI-stuff/plugins/tether/js/tether.min.js"></script>
   <script src="static/UI-stuff/plugins/raty/jquery.raty-fa.js"></script>
   <script src="static/UI-stuff/plugins/bootstrap/dist/js/popper.min.js"></script>

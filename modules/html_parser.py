@@ -24,14 +24,14 @@ class html_parser:
 #        return all_files, all_filenames
     def extract_html_title(self, f):
         for line in f:
-            #print(line)
-            if re.match("^<title>", line):
-                line = re.sub("^<title>", "", line)
-                line = re.sub("<\/title>$", "", line)
+            ##print(line)
+            if re.match("^.*<title>.*", line):
+                line = re.sub("^.*<title>", "", line)
+                line = re.sub("<\/title>.*$", "", line)
                 line = re.sub("\n$", "", line)
                 return line
-        
-    
+
+
     def load_filenames_first(self, path="static/NSW/*.html",
                          save_path = "static/filenames"):
         all_files = glob.glob(path)
@@ -42,13 +42,13 @@ class html_parser:
         for filename in all_files:
             file_id = re.sub(r"^.*\/","",filename)
             file_id = re.sub("^.*[\\\\]", "", file_id)
-            with open(filename) as f:
+            with open(filename, encoding="ISO-8859-1") as f:
                 title = self.extract_html_title(f)
                 all_filenames.append([file_id, title])
-                    
+
         utilities.write_file(all_filenames, save_path)
         return all_files, all_filenames
-    
+
     def load_filenames_not_first(self, path = "static/filenames"):
 #        with open (path, 'rb') as fp:
 #            filenames = pickle.load(fp)
@@ -83,7 +83,7 @@ class html_parser:
         f = re.sub(r'[\.\(\)\:\|\/\$\;\'\"\&\#\,]',' ',f)
         f = re.sub(r' +',' ',f)
         f = f.lower()
-        #print(f)
+        ##print(f)
         return f
 
     #load htmls and save to a file
@@ -91,12 +91,12 @@ class html_parser:
         start=datetime.now()
         all_files = glob.glob(path)
         all_filenames = [re.sub(r"^.*/","",i) for i in all_files]
-        
+
         #file = open(all_files[0], "r")
         #file = file.read()
         files = []
         for filename in all_files:
-            f=open(filename, 'r').read()
+            f=open(filename, 'r', encoding="ISO-8859-1").read()
             f = self.clean_file(f)
             files.append(f)
         end = datetime.now()
@@ -104,12 +104,12 @@ class html_parser:
 #            pickle.dump(files, fp)
         utilities.write_file(files, savefile)
         return files, all_files, all_filenames
-    
+
     def parse_input_text(self, input_text):
-        #print("inpt: {}".format(input_text))
+        ##print("inpt: {}".format(input_text))
         f = self.clean_file(input_text)
         utilities.write_file(f,"static/input_cleaned_test")
-        print("output: {}".format(f))
+        #print("output: {}".format(f))
         return f
     
     def load_files_not_first(self, path = 'static/outfile'):

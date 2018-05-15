@@ -17,7 +17,7 @@ class simi_matcher:
     def simi_matching(self, uploaded_file, existed_files, neighbors=20):
         start=datetime.now()
         
-        #print(X)
+        ##print(X)
         
         uploaded_file = np.array(uploaded_file).reshape(1, -1)
         nbrs = NearestNeighbors(n_neighbors=neighbors, algorithm='auto').fit(existed_files)
@@ -27,20 +27,20 @@ class simi_matcher:
         
         similarity = cosine_similarity(uploaded_file, neighbor_list)
         #similarity = sorted(similarity)
-        #print(X)
-        #print(x)
-        #print(indices)
-        #print(distances)
-        #print(similarity)
+        ##print(X)
+        ##print(x)
+        ##print(indices)
+        ##print(distances)
+        ##print(similarity)
         end = datetime.now()
-        #print(end-start)
+        ##print(end-start)
         return distances, indices, similarity
     
     
     def combine_fname_sim(self, all_filenames, similarity,indices, all_top_words):
         all_filenames_pd = pd.DataFrame(all_filenames,columns=["filename","title"])
         all_top_words_pd = pd.DataFrame(all_top_words, columns=["filename", "top_words"])
-        # print(all_top_words_pd)
+        # #print(all_top_words_pd)
         similarity_pd = pd.DataFrame(similarity[0],columns=["similarity"])
         result_filenames = all_filenames_pd.iloc[indices[0]]
         result_topwords = all_top_words_pd.iloc[indices[0]]
@@ -50,5 +50,5 @@ class simi_matcher:
         result = result.join(result_topwords.iloc[:,1])
         result.sort_values("similarity", inplace=True, ascending=False)
         result_array = np.array(result)
-        # print(result_array)
+        # #print(result_array)
         return result_array

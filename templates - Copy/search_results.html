@@ -14,27 +14,25 @@
 				<!-- Header Contetnt -->
 				<div class="content-block">
 					<h1>Find Similar Cases Like Yours </h1>
-					<p>Now you can start searching for similar Legal Cases like yours</p>
+					<p>Join the millions who buy and sell from each other <br> everyday in local communities around the world</p>
 					<div class="short-popular-category-list text-center">
 						<h2>Popular Case Category</h2>
-						<form>
 						<ul class="list-inline">
 							<li class="list-inline-item">
-								<a href="{{ url_for('upload', t='fav', fav='financial')}}"><i class="fa fa-gavel"></i> Financial</a></li>
+								<a href=""><i class="fa fa-gavel"></i> Financial</a></li>
 							<li class="list-inline-item">
-								<a href="{{ url_for('upload', t='fav', fav='family')}}"><i class="fa fa-gavel"></i> Family</a>
+								<a href=""><i class="fa fa-gavel"></i> Family</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="{{ url_for('upload', t='fav', fav='accident')}}"><i class="fa fa-gavel"></i> Accident</a>
+								<a href=""><i class="fa fa-gavel"></i> Accident</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="{{ url_for('upload', t='fav', fav='insurance')}}"><i class="fa fa-gavel"></i> Insurance</a>
+								<a href=""><i class="fa fa-gavel"></i> Insurance</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="{{ url_for('upload', t='fav', fav='fight')}}"><i class="fa fa-gavel"></i> Fight</a>
+								<a href=""><i class="fa fa-gavel"></i> Fight</a>
 							</li>
 						</ul>
-						</form>
 					</div>
 
 				</div>
@@ -49,11 +47,19 @@
 
 <!--results-->
 				<div class="show-results">
-					{% for link,title in articles %}
-					<a  href="{{url_for('showing_article',link=link, searching="key")}}"><button class="accordion-2">{{title}}</button></a>
+					{% for link,title, similarity, top_words in articles %}
+						<button class="accordion">{{title}}</button>
+						<div class="panel">
+						  <p>
+      							<ul class="list-group">
+									<li class="list-group-item" style="text-align: left">This Case is Similar to Your case with the Similarity Score of: <span style="color: green">{{ similarity|round(2)}} </span></li>
+									<li class="list-group-item" style="text-align: left">Top Important Keyword in this Case: <br> {{ top_words[:50] }}</li>
+									<li class="list-group-item"><a  href="{{url_for('showing_article',link=link, searching="True")}}">Check this Case</a></li>
+      							</ul>
+						  </p>
+						</div>
 					{% endfor %}
 				<div style="text-align: center">
-
 					<nav class="pagentation">
 						<div>
 							{% if total > 10 %}
@@ -80,9 +86,9 @@
 									{% for i in range(start, end + 1) %}
 										<div class="pagination">
 										{% if i == page %}
-											<a href="{{url_for('searchkw_result',page= i)}}" class="active">{{ i }}</a>
+											<a href="{{url_for('show_search_result',page= i)}}" class="active">{{ i }}</a>
 										{% else %}
-											<a href="{{url_for('searchkw_result',page= i)}}">{{ i }}</a>
+											<a href="{{url_for('show_search_result',page= i)}}">{{ i }}</a>
 										{% endif %}
 										</div>
 									{% endfor %}
@@ -104,22 +110,22 @@
 
 
 
-<!--<script>-->
-<!--var acc = document.getElementsByClassName("accordion");-->
-<!--var i;-->
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
 
-<!--for (i = 0; i < acc.length; i++) {-->
-    <!--acc[i].addEventListener("click", function() {-->
-        <!--this.classList.toggle("active-mine");-->
-        <!--var panel = this.nextElementSibling;-->
-        <!--if (panel.style.display === "block") {-->
-            <!--panel.style.display = "none";-->
-        <!--} else {-->
-            <!--panel.style.display = "block";-->
-        <!--}-->
-    <!--});-->
-<!--}-->
-<!--</script>-->
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        this.classList.toggle("active-mine");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    });
+}
+</script>
 
 <!--============================
 =            Footer            =
@@ -145,5 +151,4 @@
       <a id="top" class="" href=""><i class="fa fa-angle-up"></i></a>
     </div>
 </footer>
-
 {% endblock %}
