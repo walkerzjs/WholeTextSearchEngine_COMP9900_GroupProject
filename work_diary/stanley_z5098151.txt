@@ -1,17 +1,21 @@
 Week 2
 Group formed, created Trello and BitBucket accounts
+First group meeting
 
 Week 3
 Decided the topic, discussed about what algorithms are we going to use
 Created the project proposal
+Group meeting
 
 Week 4
-Assigning tasks to each teammates
+Assigning tasks to each teammates (my task: user interface, route.py )
 started working on the web interface
+Group meeting
 
 Week 5
 Got a simple working interface
 Added paging and upload function
+Group meeting
 
 Week 6
 trying to fix my branch
@@ -19,21 +23,32 @@ was not able to run or commit
 
 Week 7
 Fixed the branch issue with Hendri and Jacob's help
-Implemented a simple login and register function with Hendri
+Implemented a simple login and register function with Hendri (Group meeting)
 
 Week 8
 Improved login function
 Modified templates, added logo and ico
+Integrating and merging all works from different teammates
 Minor UI fixes
+Group meeting
 
 Week 9
 Bug fixing
 Integrating and merging works(mainly UI) from 3 teammates
 Highlighting keywords in search result
+Group meeting * 2
 
 Week 10
-Testing and bug fixing
-Improvments(Hossein) and fixes for UI
+Testing and bug fixing (including dead links, paging, filenames error, displaying error and some more)
+Improvments(mostly from Hossein) and fixes for UI (home, login, register and basically every page)
+Integrating and merging works(mainly UI)
+Group meeting * 2
 
 Week 11
-Final checking and bug fixing
+Integrating and merging works(mainly UI)
+Final checking and bug fixing(Group meeting)
+Last demo before final demo
+
+Week 12
+Final checking and bug fixing before the final demo
+Group meeting
