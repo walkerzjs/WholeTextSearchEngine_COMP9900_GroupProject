@@ -22,6 +22,8 @@ Important:
 * Write access to master branch is only scrum master for editing README.md and add some files
 * To merge to master branch, 2 approvals is required. Will increase to 3 or 4 if necessary.
 
+
+
 Setting up and running the system:
 1. Firstly, run virtual environment and install all supporting external libraries in requirements.txt (pip3 install -r requirements.txt)
 2. Secondly, add all case data to the /static/NSW folder. It will not be included in the repository because of the large file size. Next, run init.py.

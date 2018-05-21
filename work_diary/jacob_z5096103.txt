@@ -31,3 +31,19 @@ Implemented functions for extracting important words for 1-gram and 2-gram featu
 
 Week 7:
 Added function of displaying important words produced by tfidf algorithm. and enabled the function of search bar
+
+Week 8: helped fix a bug when extracting case titles (some are None).
+
+Week 9:
+Helped with some UI modification to add the whole case search function onto the home page, and developed one candidate version for displaying searching results. cooperate with other members to integrate different part of work from each member. Wrote a rough version of  ‘overview’ and ‘Implementation challenges’ parts of the project report.
+
+Week10: helped with integration and fixing bugs.
+
+Week11: Tested the performance of using PCA to do dimensionality reduction, and shifted from using SVD to PCA for reducing dimensionality. Also revised the code to clean unnecessary code and comments. Fixed a bug to remove the files that cannot be extracted titles.
+
+Fixed a bug when displaying whole case search by input page, which is:”templates/upload_plain.html”, when used in safari, the “upload” button cannot displayed when the browser window is large. It is related to the style of the div element wrapping the button.
+
+Gave most of the functions in the program descriptions as comments on top of each function.
+
+
+ 
