@@ -1,86 +1,73 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 28 11:26:52 2018
-
-@author: junshuaizhang
-"""
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import TruncatedSVD
+from sklearn.decomposition import PCA
 import modules.html_parser as html_parser
 import modules.utilities as utilities
-from collections import defaultdict
+import nltk
+nltk.download('wordnet')
 from nltk.corpus import wordnet
-import re, glob, os
+import re, glob
 import numpy as np
-
 
 class vector_operator():
 
+    # Using TF-IDF to fit all the HTML files and save the model to the local file
     def vectorize(self, outfile, path='static/vectorizer'):
         vectorizer = TfidfVectorizer(max_df=0.5, ngram_range=(1, 1),
                                      min_df=2, stop_words='english', max_features=10000)
         vectorizer.fit(outfile)
-
-        #        with open('static/vectorizer', 'wb') as fp:
-        #            pickle.dump(vectorizer, fp)
         utilities.write_file(vectorizer, path)
         return vectorizer
 
+    # Load the fitted TF-IDF model from local file
     def load_vectorizer(self, path="static/vectorizer"):
-        #        with open (filename, 'rb') as fp:
-        #            vectorizer = pickle.load(fp)
         vectorizer = utilities.load_file(path)
         return vectorizer
 
+    # using the fitted TF-IDF model to transform all the documents into vectors and save it to the local file
     def transform_text_first_time(self, vectorizer, file_list, path='static/vectors'):
-
         vectors = vectorizer.transform(file_list)
-        #        with open('static/vectors', 'wb') as fp:
-        #            pickle.dump(vectors, fp)
         utilities.write_file(vectors, path)
         return vectors
 
+    # using the fitted TF-IDF model to transform one document, used when user input or upload text.
     def transform_text_not_first_time(self, vectorizer, text):
         vector = vectorizer.transform(text)
         return vector
 
+    # load the vectors produced by TF-IDF from local file
     def load_vector(self, path='static/vectors'):
-        #        with open (vec_path, 'rb') as fp:
-        #            vectors = pickle.load(fp)
         vectors = utilities.load_file(path)
         return vectors
 
+    # Transforming the sparse matrix produced by TF-IDF to the normal matrix,
+    # then use PCA to reduce the dimension size of it.
+    # Finally save the PCA model and the reduced matrix to the local files.
     def dim_reduction_first_time(self, vectors, n_components=1000, \
-                                 path_svd='static/TruncatedSVD', \
+                                 path='static/PCA', \
                                  path_red='static/reduced_vectors'):
-        svd = TruncatedSVD(n_components=n_components)
-        svd.fit(vectors)
-        #        with open('static/TruncatedSVD', 'wb') as fp:
-        #            pickle.dump(svd, fp)
-        utilities.write_file(svd, path_svd)
-        reduced_vectors = svd.transform(vectors)
-        #        with open('static/reduced_vectors', 'wb') as fp:
-        #            pickle.dump(reduced_vectors, fp)
+        vectors = vectors.toarray()
+        pca = PCA(n_components=n_components)
+        pca.fit(vectors)
+        utilities.write_file(pca, path)
+        reduced_vectors = pca.transform(vectors)
         utilities.write_file(reduced_vectors, path_red)
         return reduced_vectors
 
-    def load_dim_red_model(self, path='static/TruncatedSVD'):
-        #        with open (path, 'rb') as fp:
-        #            reducer = pickle.load(fp)
+    # load the fitted PCA model from local file
+    def load_dim_red_model(self, path='static/PCA'):
         reducer = utilities.load_file(path)
         return reducer
 
+    # Do the dimension reduction using fitted PCA
+    # This is for the transformation when the user upload or input text for similarity searching
     def dim_reduction_not_first(self, vector, reducer, path='static/reduced_vector'):
+        vector = vector.toarray()
         reduced_vector = reducer.transform(vector)
-        #        with open('static/reduced_vector', 'wb') as fp:
-        #            pickle.dump(reduced_vector, fp)
         utilities.write_file(reduced_vector, path)
         return reduced_vector
 
+    # Load the dimension-reduced matrix from local file
     def load_reduced_vectors(self, path='static/reduced_vectors'):
-        #        with open (path, 'rb') as fp:
-        #            reduced_vectors = pickle.load(fp)
         reduced_vectors = utilities.load_file(path)
         return reduced_vectors
 
@@ -111,18 +98,13 @@ class vector_operator():
     # top words one gram
     def load_all_top_words_first(self, vectorizer, path="static/NSW/*.html", save_path="static/all_file_topwords"):
         hp = html_parser.html_parser()
-        # vectorizer = self.load_vectorizer()
         indices = np.argsort(vectorizer.idf_)[::-1]
         features = vectorizer.get_feature_names()
         all_files = glob.glob(path)
-        # all_filenames = [re.sub(r"^.*/","/",i) for i in all_files]
-        #        with open('static/filenames', 'wb') as fp:
-        #            pickle.dump(all_filenames, fp)
         all_file_topwords = []
         for filename in all_files:
             file_id = re.sub(r"^.*/", "", filename)
             file_id = re.sub("^.*[\\\\]", "", file_id)
-            # print(filename)
             top_words = self.get_top_words_one_gram(filename, indices, features, hp)
             with open(filename) as f:
                 all_file_topwords.append([file_id, top_words])
@@ -130,6 +112,7 @@ class vector_operator():
         utilities.write_file(all_file_topwords, save_path)
         return all_file_topwords
 
+    # load all the top words produced by TF-IDF from local file.
     def load_all_top_words_not_first(self, path="static/all_file_topwords"):
         top_words = utilities.load_file(path)
         return top_words

@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-    Created on Wed Mar 28 11:28:18 2018
-    
-    @author: junshuaizhang
-    """
+
 from datetime import datetime
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
@@ -13,12 +7,11 @@ import pandas as pd
 
 
 class simi_matcher:
-    
+
+    # find the similar documents to the uploaded file or input text.
+    # Used NearestNeighbors API from scikit-learn
     def simi_matching(self, uploaded_file, existed_files, neighbors=20):
         start=datetime.now()
-        
-        ##print(X)
-        
         uploaded_file = np.array(uploaded_file).reshape(1, -1)
         nbrs = NearestNeighbors(n_neighbors=neighbors, algorithm='auto').fit(existed_files)
         distances, indices = nbrs.kneighbors(uploaded_file)
@@ -26,21 +19,13 @@ class simi_matcher:
         neighbor_list = [existed_files[i] for i in indices][0]
         
         similarity = cosine_similarity(uploaded_file, neighbor_list)
-        #similarity = sorted(similarity)
-        ##print(X)
-        ##print(x)
-        ##print(indices)
-        ##print(distances)
-        ##print(similarity)
         end = datetime.now()
-        ##print(end-start)
         return distances, indices, similarity
     
-    
+    # get the filename, title and top words with the similarity searching result.
     def combine_fname_sim(self, all_filenames, similarity,indices, all_top_words):
         all_filenames_pd = pd.DataFrame(all_filenames,columns=["filename","title"])
         all_top_words_pd = pd.DataFrame(all_top_words, columns=["filename", "top_words"])
-        # #print(all_top_words_pd)
         similarity_pd = pd.DataFrame(similarity[0],columns=["similarity"])
         result_filenames = all_filenames_pd.iloc[indices[0]]
         result_topwords = all_top_words_pd.iloc[indices[0]]
@@ -50,5 +35,4 @@ class simi_matcher:
         result = result.join(result_topwords.iloc[:,1])
         result.sort_values("similarity", inplace=True, ascending=False)
         result_array = np.array(result)
-        # #print(result_array)
         return result_array
