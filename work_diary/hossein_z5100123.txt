@@ -10,4 +10,13 @@ Week 4  having regular team meeting, talk to tutor about the last week, talk abo
         start working on the text clearifacation, start on text extraction, work on text vectorization using scklearn library and tfidfvectorizer
 week 5  working on the structure of functions, meeting with team members talking about the integration of functions
         have a meeting on wednesday, check the progress of the project, work on the final version of functions that I am responsible for
-week 6
+week 6  having weekly team meet ups, and I started working on the keyword search, did a demo 
+week 7  make a module for keyword search in both content of all cases and in title of all cases, had a weelly meet ups, made some group decisions about
+        improving our interface
+week 8  finalize the keyword search, it could search in both title, content or combination of both. start working on new interface, had weekly meet up
+week 9  commit the first version of new interface, discuss with other team member about the issues of new interface, weekly meet up
+week 10 do the demo for the tutor for the last time, had a discussion with hendri, jacob and stanly about cleaning the code, modifying the interface and 
+        make the project ready for final demo
+week 11 making final changes to interface, maling the project ready for final demo, 
+        do the final demo and presentation
+week 12 helping other team member to clean the code for final submission, a little help with the final report
