@@ -103,7 +103,7 @@ class vector_operator():
         all_files = glob.glob(path)
         all_file_topwords = []
         for filename in all_files:
-            file_id = re.sub(r"^.*/", "", filename)
+            file_id = re.sub(r"^.*\/", "", filename)
             file_id = re.sub("^.*[\\\\]", "", file_id)
             top_words = self.get_top_words_one_gram(filename, indices, features, hp)
             with open(filename, 'r', encoding="ISO-8859-1") as f:
