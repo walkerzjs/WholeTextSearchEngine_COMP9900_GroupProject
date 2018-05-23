@@ -225,7 +225,7 @@ def get_all_aritcles(page, total):
 
     for i in sorted(list):
         if count > (page - 1) * 100 and count <= page * 100:
-            with open(os.path.join("static/NSW/", i)) as f:
+            with open(os.path.join("static/NSW/", i), encoding="ISO-8859-1") as f:
                 title = se.hp.extract_html_title(f)
                 articles[i] = title
 
@@ -257,7 +257,7 @@ def get_random_articles ():
         title = None
         while title is None:
             i = random.choice(files)
-            with open(os.path.join("static/NSW/", i)) as f:
+            with open(os.path.join("static/NSW/", i), encoding="ISO-8859-1") as f:
                 title = se.hp.extract_html_title(f)
             f.close()
         articles[i] = title
