@@ -13,4 +13,4 @@ If due to some unseen reason, the MakeFile cannot go through, alternatively, set
 
 2. Next, run init.py under the software folder(/searchengine/init.py), it will generate related data used for similarity searching (i.e. vectors, vectorizers, processed files).
 
-3. Run searchEngine.py (/searchengine/searchEngine.py), open a web browser, and go to: localhost:1345
+3. Run searchEngine.py (/searchengine/searchEngine.py), open a web browser, and go to: localhost:9900

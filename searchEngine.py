@@ -306,4 +306,4 @@ if __name__ == '__main__':
     global logged
     logged = False
     app.secret_key = os.urandom(12)
-    app.run(debug=True, port=1345)
+    app.run(debug=True, port=9900)
