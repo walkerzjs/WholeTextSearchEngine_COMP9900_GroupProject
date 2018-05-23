@@ -106,7 +106,11 @@ class vector_operator():
             file_id = re.sub(r"^.*/", "", filename)
             file_id = re.sub("^.*[\\\\]", "", file_id)
             top_words = self.get_top_words_one_gram(filename, indices, features, hp)
-            with open(filename) as f:
+            with open(filename, 'r', encoding="ISO-8859-1") as f:
+                title = hp.extract_html_title(f)
+                if title == 'Unknown Title':
+                    #print(filename)
+                    continue
                 all_file_topwords.append([file_id, top_words])
 
         utilities.write_file(all_file_topwords, save_path)
