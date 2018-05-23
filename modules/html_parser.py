@@ -63,7 +63,7 @@ class html_parser:
     def load_files_first(self, path="static/NSW/*.html", savefile='static/outfile'):
         start=datetime.now()
         all_files = glob.glob(path)
-        all_filenames = [re.sub(r"^.*/","",i) for i in all_files]
+        all_filenames = [re.sub("^.*[\\\\]", "", re.sub(r"^.*\/","",i)) for i in all_files]
         files = []
         count=0
         for filename in all_files:
